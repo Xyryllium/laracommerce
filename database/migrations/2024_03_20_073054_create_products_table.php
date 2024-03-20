@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->unsignedBigInteger("category_id");
+            $table->unsignedBigInteger("inventory_id");
             $table->foreign('category_id')->references('id')->on('product_category');
             $table->foreign('inventory_id')->references('id')->on('product_inventory');
             $table->float('price');
+            $table->unsignedBigInteger("discount_id");
             $table->foreign('discount_id')->references('id')->on('discount');
             $table->softDeletes();
             $table->timestamps();
