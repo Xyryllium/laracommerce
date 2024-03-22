@@ -12,14 +12,11 @@ class CategoryMapper
     {
         return new  Category(
             Helpers::nullStringToInt($data["id"] ?? null),
-            $data['username'],
-            $data['firstName'],
-            $data['lastName'],
-            $data['email'],
-            $data['password'] ?? null,
-            $data['telephone'] ?? null,
+            $data['name'],
+            $data['description'],
             $data['createdAt'] ?? date('Y-m-d H:i:s'),
             $data['updatedAt'] ?? null,
+            $data['deletedAt'] ?? null,
         );
     }
 }

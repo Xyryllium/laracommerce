@@ -35,24 +35,39 @@ class ProductController
         }
     }
 
-    // public function update(Request $request): Response
-    // {
-    //     try {
-    //         $dataArray = ($request->toArray() !== [])
-    //             ? $request->toArray()
-    //             : $request->json()->all();
-    //         return new Response(
-    //             $this->service->update($dataArray)->toArray(),
-    //             HTTPResponseCodes::Success['code']
-    //         );
-    //     } catch (Exception $error) {
-    //         return new Response(
-    //             [
-    //                 "exception" => get_class($error),
-    //                 "errors" => $error->getMessage(),
-    //             ],
-    //             HTTPResponseCodes::BadRequest['code']
-    //         );
-    //     }
-    // }
+    public function updateCategory(Request $request): Response
+    {
+        try {
+            $dataArray = ($request->toArray() !== [])
+                ? $request->toArray()
+                : $request->json()->all();
+            return new Response(
+                $this->productCategoryService->update($dataArray)->toArray(),
+                HTTPResponseCodes::Success['code']
+            );
+        } catch (Exception $error) {
+            return new Response(
+                [
+                    "exception" => get_class($error),
+                    "errors" => $error->getMessage(),
+                ],
+                HTTPResponseCodes::BadRequest['code']
+            );
+        }
+    }
+
+    public function softDeleteCategory(int $id): Response
+    {
+        try {
+            return new Response($this->productCategoryService->softDelete($id));
+        } catch (Exception $error) {
+            return new Response(
+                [
+                    "exception" => get_class($error),
+                    "errors" => $error->getMessage(),
+                ],
+                HTTPResponseCodes::BadRequest['code']
+            );
+        }
+    }
 }

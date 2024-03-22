@@ -7,7 +7,7 @@ namespace App\Modules\Product\Category;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
-class CategoryRepository 
+class CategoryRepository
 {
     private $tableName = 'product_category';
     private $selectColumns = [
@@ -35,18 +35,34 @@ class CategoryRepository
         return CategoryMapper::mapFrom($result);
     }
 
-    // public function update(User $user): User
-    // {
-    //     return DB::transaction(function () use ($user) {
-    //         DB::table($this->tableName)->updateOrInsert([
-    //             "id" => $user->getId()
-    //         ], $user->toSQL());
+    public function update(Category $category): Category
+    {
+        return DB::transaction(function () use ($category) {
+            DB::table($this->tableName)->updateOrInsert([
+                "id" => $category->getId()
+            ], $category->toSQL());
 
-    //         $id = ($user->getId() === null || $user->getId() === 0)
-    //                 ? (int)DB::getPdo()->lastInsertId()
-    //                 : $user->getId();
-            
-    //         return $this->get($id);
-    //     });
-    // }
+            $id = ($category->getId() === null || $category->getId() === 0)
+                ? (int)DB::getPdo()->lastInsertId()
+                : $category->getId();
+
+            return $this->get($id);
+        });
+    }
+
+    public function softDelete(int $id): bool
+    {
+        $result = DB::table($this->tableName)
+            ->where("id", $id)
+            ->where("deleted_at", null)
+            ->update([
+                'deleted_at' => date("Y-m-d H:i:s")
+            ]);
+
+        if (1 !== $result) {
+            throw new InvalidArgumentException("Invalid Product Category ID!");
+        }
+
+        return true;
+    }
 }

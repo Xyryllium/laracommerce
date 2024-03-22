@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Modules\User;
 
-use Illuminate\Support\Facades\Hash;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
-
 class UserService
 {
     private UserRepository $repository;
@@ -19,7 +16,7 @@ class UserService
         $this->repository = $repository;
         $this->validator = $validator;
     }
-    
+
     public function get(int $id): User
     {
         return $this->repository->get($id);
