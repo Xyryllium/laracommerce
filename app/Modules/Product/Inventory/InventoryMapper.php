@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Modules\Product\Category;
+namespace App\Modules\Product\Inventory;
 
 use App\Modules\Common\Helpers;
 
-class CategoryMapper
+class InventoryMapper
 {
-    public static function mapFrom(array $data): Category
+    public static function mapFrom(array $data): Inventory
     {
-        return new Category(
+        return new Inventory(
             Helpers::nullStringToInt($data["id"] ?? null),
-            $data['name'],
-            $data['description'],
+            Helpers::nullStringToInt($data["quantity"] ?? null),
             $data['createdAt'] ?? date('Y-m-d H:i:s'),
             $data['updatedAt'] ?? null,
             $data['deletedAt'] ?? null,
