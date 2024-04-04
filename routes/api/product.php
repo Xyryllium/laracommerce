@@ -10,3 +10,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/product/category/{id}', [ProductController::class, 'getCategory']);
+Route::get('/product/{id}', [ProductController::class, 'getProductById']);
+Route::get('/products', [ProductController::class, 'getProducts']);
+Route::post('/product', [ProductController::class, 'createProduct']);

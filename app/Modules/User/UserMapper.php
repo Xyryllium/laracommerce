@@ -11,7 +11,7 @@ class UserMapper
 {
     public static function mapFrom(array $data): User
     {
-        return new  User(
+        return new User(
             Helpers::nullStringToInt($data["id"] ?? null),
             $data['username'],
             $data['firstName'],
