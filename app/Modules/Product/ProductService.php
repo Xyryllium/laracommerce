@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Product;
 
 use App\Events\ProductCreated;
-use Carbon\Carbon;
+use App\Events\ProductsFetched;
 use Illuminate\Support\Facades\Redis;
 
 class ProductService
@@ -32,9 +32,8 @@ class ProductService
             $products = unserialize(Redis::get('all_products'));
         } else {
             $products = $this->repository->getAll();
-            $expirationTimestamp = Carbon::now()->addMinutes(10)->timestamp;
-
-            Redis::set('all_products', serialize($products), 'EX', $expirationTimestamp);
+            
+            event(new ProductsFetched($products));
         }
 
         return $products;

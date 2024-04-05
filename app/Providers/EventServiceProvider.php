@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ProductCreated;
+use App\Events\ProductsFetched;
 use App\Listeners\CacheNewProduct;
+use App\Listeners\CacheProducts;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductCreated::class => [
             CacheNewProduct::class,
+        ],
+        ProductsFetched::class => [
+            CacheProducts::class,
         ],
     ];
 
