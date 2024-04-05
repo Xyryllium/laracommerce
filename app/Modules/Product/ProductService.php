@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Product;
 
+use App\Events\ProductCreated;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redis;
 
@@ -47,7 +48,7 @@ class ProductService
             ProductMapper::mapFrom($data)
         );
 
-        Redis::del('all_products');
+        event(new ProductCreated($product));
 
         return $product;
     }
