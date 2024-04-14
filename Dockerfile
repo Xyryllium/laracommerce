@@ -15,5 +15,7 @@ COPY . .
 
 COPY --from=composer:2.7.2 /usr/bin/composer /usr/bin/composer
 
+RUN composer install
+
 ENV PORT=8000
 ENTRYPOINT [ "docker/entrypoint.sh" ]
