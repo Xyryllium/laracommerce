@@ -55,7 +55,8 @@ class CartController
             }
 
             $this->cartService->updateTotal($dataArray);
-            $this->cartService->addItems($dataArray);
+            $this->cartService->addItem($dataArray);
+
             return new Response(
                 HTTPResponseCodes::Success['code']
             );
